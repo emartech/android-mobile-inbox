@@ -3,6 +3,7 @@ package com.emarsys.pnp.inbox
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -51,12 +52,12 @@ class EmarsysInboxRecyclerViewAdapter(private val viewModel: EmarsysInboxViewMod
         RecyclerView.ViewHolder(view) {
         val title: TextView = view.notification_title
         val date: TextView = view.notification_date
-        val pin: ImageView = view.notification_pin
+        val pin: ImageButton = view.notification_pin
 
         fun bindTo(message: EmarsysInboxMessage) {
             title.text = message.title
             date.text = message.updatedAt
-            pin.setImageResource(if (message.isPinned) R.drawable.baseline_star_black_36 else R.drawable.baseline_star_outline_black_36)
+            pin.isSelected = message.isPinned
             pin.setOnClickListener { viewModel.pin(message) }
             view.setOnClickListener { viewModel.opened(message) }
         }

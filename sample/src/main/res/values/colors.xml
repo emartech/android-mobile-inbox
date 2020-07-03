@@ -3,4 +3,10 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="ems_headerBackgroundColor">#5F9F9F</color>
+    <color name="ems_headerForegroundColor">@android:color/white</color>
+    <color name="ems_bodyBackgroundColor">#D1EEEE</color>
+    <color name="ems_bodyForegroundColor">@android:color/black</color>
+    <color name="ems_starTintColor">#0a84ff</color>
+    <color name="ems_starHighlightTintColor">#FFD700</color>
 </resources>

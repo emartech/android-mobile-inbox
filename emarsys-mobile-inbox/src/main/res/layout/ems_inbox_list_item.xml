@@ -8,11 +8,14 @@
     android:minHeight="64dp"
     android:orientation="horizontal">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/notification_pin"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ems_pin_button"
+        style="@style/Emarsys.MessageInbox.ListItem.PinButton" />
 
     <LinearLayout
         android:layout_width="0dp"

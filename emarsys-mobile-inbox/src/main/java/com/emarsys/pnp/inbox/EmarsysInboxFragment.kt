@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.emarsys.plugnplay.inbox.R
@@ -25,13 +27,15 @@ class EmarsysInboxFragment : Fragment() {
         childFragmentManager.beginTransaction().replace(R.id.container, EmarsysInboxListFragment())
             .commitNow()
         childFragmentManager.addOnBackStackChangedListener {
-            if (childFragmentManager.backStackEntryCount == 0) viewModel.selectedItem.value = null
+            if (childFragmentManager.backStackEntryCount == 0)
+                viewModel.selectedItem.value = null
         }
 
         viewModel.selectedItem.observe(viewLifecycleOwner) {
             if (childFragmentManager.backStackEntryCount == 0 && it != null) {
                 childFragmentManager.beginTransaction()
                     .replace(R.id.container, EmarsysInboxDetailFragment())
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(EmarsysInboxDetailFragment::class.simpleName)
                     .commit()
             }

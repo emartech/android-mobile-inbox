@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Emarsys.MessageInbox" parent="android:Widget">
+    </style>
+    <style name="Emarsys.MessageInbox.ListItem.PinButton" parent="Widget.AppCompat.ImageButton">
+    </style>
+</resources>
