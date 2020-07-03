@@ -1,0 +1,3 @@
+include ':emarsys-mobile-inbox'
+include ':sample'
+rootProject.name = "android-mobile-inbox"
