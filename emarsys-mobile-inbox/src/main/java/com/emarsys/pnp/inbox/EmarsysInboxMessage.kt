@@ -14,9 +14,12 @@ data class EmarsysInboxMessage(
     val isSeen: Boolean = message.tags?.contains("seen") ?: false,
     val isPinned: Boolean = message.tags?.contains("pinned") ?: false,
     val isDeleted: Boolean = message.tags?.contains("deleted") ?: false,
-    val updatedAt: String = DateFormat.format(dateFormat, message.updatedAt * 1000) as String,
-    val properties: Map<String, String> = message.properties ?: mapOf(),
-    val ttl: Int? = message.ttl
+    val updatedAt: String? = message.updatedAt?.times(1000)?.let {
+        DateFormat.format(dateFormat,
+            it
+        )
+    } as String,
+    val properties: Map<String, String> = message.properties ?: mapOf()
 ) {
 
 
