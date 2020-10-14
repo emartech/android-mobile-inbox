@@ -45,7 +45,7 @@ class EmarsysInboxViewModel() : ViewModel() {
             it.result?.let { notificationStatus ->
                 messages.value = notificationStatus.messages
                     .filter { !(it.tags?.contains("deleted") ?: false) }
-                    .sortedByDescending { it.updatedAt }
+                    .sortedByDescending { it.receivedAt }
                     .map { EmarsysInboxMessage(it) } as MutableList
             }
             it.errorCause?.let { cause ->

@@ -43,7 +43,7 @@ class EmarsysInboxRecyclerViewAdapter(private val viewModel: EmarsysInboxViewMod
             newItem: EmarsysInboxMessage
         ): Boolean {
             return oldItem.title == newItem.title &&
-                    oldItem.updatedAt == newItem.updatedAt &&
+                    oldItem.receivedAt == newItem.receivedAt &&
                     oldItem.isPinned == newItem.isPinned
         }
     }
@@ -56,7 +56,7 @@ class EmarsysInboxRecyclerViewAdapter(private val viewModel: EmarsysInboxViewMod
 
         fun bindTo(message: EmarsysInboxMessage) {
             title.text = message.title
-            date.text = message.updatedAt
+            date.text = message.receivedAt
             pin.isSelected = message.isPinned
             pin.setOnClickListener { viewModel.pin(message) }
             view.setOnClickListener { viewModel.opened(message) }
