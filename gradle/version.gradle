@@ -1,6 +1,6 @@
 
 ext {
-    emarsys_sdk_version = "2.9.0"
+    emarsys_sdk_version = "3.0.0"
     emarsys_sdk_version_code = 19
 }
 
