@@ -15,11 +15,9 @@ class InboxSampleApplication : Application(), EventHandler {
 
     override fun onCreate() {
         super.onCreate()
-        val config = EmarsysConfig.Builder()
-            .application(this)
-            .mobileEngageApplicationCode("EMS89-AACEA")
-            .contactFieldId(100010824)
-            .build()
+        val config = EmarsysConfig(application=this,
+            applicationCode="EMS89-AACEA",
+            verboseConsoleLoggingEnabled= true)
         createNotificationChannels()
         Emarsys.setup(config)
 
