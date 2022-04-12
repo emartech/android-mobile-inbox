@@ -11,23 +11,27 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.emarsys.plugnplay.inbox.R
-import kotlinx.android.synthetic.main.ems_inbox_detail_fragment.*
-import kotlinx.android.synthetic.main.ems_inbox_detail_fragment_item.view.*
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentItemBinding
 
 class EmarsysInboxDetailFragment : Fragment() {
     private val viewModel: EmarsysInboxViewModel by activityViewModels()
+    private var _binding: EmsInboxDetailFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.ems_inbox_detail_fragment, container, false)
+        _binding = EmsInboxDetailFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pager.adapter = object : RecyclerView.Adapter<EmarsysInboxDetailViewHolder>() {
+        binding.pager.adapter = object : RecyclerView.Adapter<EmarsysInboxDetailViewHolder>() {
             override fun onCreateViewHolder(
                 parent: ViewGroup,
                 viewType: Int
@@ -47,24 +51,25 @@ class EmarsysInboxDetailFragment : Fragment() {
                 viewModel.messages.value?.get(position)?.let { holder.bindTo(it) }
             }
         }
-        viewModel.selectedItem.value?.let { pager.setCurrentItem(it, false) }
+        viewModel.selectedItem.value?.let { binding.pager.setCurrentItem(it, false) }
 
-        pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                viewModel.selectedItem.value = pager.currentItem
+                viewModel.selectedItem.value = binding.pager.currentItem
             }
         })
 
         viewModel.messages.observe(viewLifecycleOwner) {
-            (pager.adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
+            (binding.pager.adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
         }
     }
 
     private class EmarsysInboxDetailViewHolder(itemView: View, val fragment: Fragment) :
         RecyclerView.ViewHolder(itemView) {
-        val title = itemView.title
-        val body = itemView.body
-        val image = itemView.image
+        val binding = EmsInboxDetailFragmentItemBinding.bind(itemView)
+        val title = binding.title
+        val body = binding.body
+        val image = binding.image
 
         fun bindTo(message: EmarsysInboxMessage) {
             title.text = message.title

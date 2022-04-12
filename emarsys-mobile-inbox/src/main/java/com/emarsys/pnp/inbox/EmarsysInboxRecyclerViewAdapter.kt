@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.emarsys.plugnplay.inbox.R
-import kotlinx.android.synthetic.main.ems_inbox_list_item.view.*
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxListItemBinding
 
 class EmarsysInboxRecyclerViewAdapter(private val viewModel: EmarsysInboxViewModel) :
     ListAdapter<EmarsysInboxMessage, EmarsysInboxRecyclerViewAdapter.ViewHolder>(DiffCallback) {
@@ -48,11 +47,12 @@ class EmarsysInboxRecyclerViewAdapter(private val viewModel: EmarsysInboxViewMod
         }
     }
 
-    class ViewHolder(val view: View, val viewModel: EmarsysInboxViewModel) :
+    class ViewHolder(private val view: View, private val viewModel: EmarsysInboxViewModel) :
         RecyclerView.ViewHolder(view) {
-        val title: TextView = view.notification_title
-        val date: TextView = view.notification_date
-        val pin: ImageButton = view.notification_pin
+        private val binding = EmsInboxListItemBinding.bind(view)
+        private val title: TextView = binding.notificationTitle
+        private val date: TextView = binding.notificationDate
+        private val pin: ImageButton = binding.notificationPin
 
         fun bindTo(message: EmarsysInboxMessage) {
             title.text = message.title
