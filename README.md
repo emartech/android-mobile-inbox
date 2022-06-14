@@ -17,3 +17,18 @@ TODO
 ----
 - Fully styleable Widgets.
 - Distribution with AAR/Maven.
+
+----
+Submodules
+-----
+If you want to add this repository as a submodule of your project, so that you can pull new changes directly to your project and not have the inbox as a part of it:
+- In terminal, run:
+`git submodule add https://github.com/emartech/android-mobile-inbox <Name you want the submodule to have>` and `git submodule update --init --recursive`
+- settings.gradle should look like this:
+`include ':<submodule name>'`
+`include ':app'`
+`rootProject.name = "<root project name>"`
+`project(':<submodule name>').projectDir = new File('<submodule name>/emarsys-mobile-inbox')`
+- build.gradle (:app) should include:
+`implementation project(':<submodule name>')`
+- If, at any moment, the inbox folder appears empty, run `git submodule update --init --recursive` . If it doesn't appear at all, run `git submodule add --force https://github.com/emartech/android-mobile-inbox <submodule name>`
