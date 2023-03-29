@@ -16,7 +16,7 @@ class InboxSampleApplication : Application(), EventHandler {
     override fun onCreate() {
         super.onCreate()
         val config = EmarsysConfig(application=this,
-            applicationCode="EMS89-AACEA",
+            applicationCode="EMS98-029BE",
             verboseConsoleLoggingEnabled= true)
         createNotificationChannels()
         Emarsys.setup(config)
