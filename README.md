@@ -26,13 +26,12 @@ If you want to add this repository as a submodule of your project, so that you c
 `git submodule add https://github.com/emartech/android-mobile-inbox <Name you want the submodule to have>` and `git submodule update --init --recursive`
 - settings.gradle should look like this:
 
-  `include ':<submodule name>'`
-
-  `include ':app'`
-
-  `rootProject.name = "<root project name>"`
-
-  `project(':<submodule name>').projectDir = new File('<submodule name>/emarsys-mobile-inbox')`
+  ```
+  include ':<submodule name>'
+  include ':app'
+  rootProject.name = "<root project name>"
+  project(':<submodule name>').projectDir = new File('<submodule name>/emarsys-mobile-inbox')
+  ```
 
 - build.gradle (:app) should include:
 `implementation project(':<submodule name>')`
