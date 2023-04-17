@@ -1,5 +1,7 @@
 # android-mobile-inbox
 
+[![REUSE status](https://api.reuse.software/badge/github.com/emartech/android-mobile-inbox)](https://api.reuse.software/info/github.com/emartech/android-mobile-inbox)
+
 With [Emarsys SDK](https://github.com/emartech/android-emarsys-sdk), you can [fetch inbox messages](https://github.com/emartech/android-emarsys-sdk/wiki#7-messageinbox) for a user.
 
 This library is a plug and play inbox, that you can reuse and customise to your own branding.
