@@ -4,11 +4,14 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.mobileengage.api.event.EventHandler
+import com.google.android.gms.common.GoogleApiAvailability
+import com.google.android.gms.security.ProviderInstaller
 import org.json.JSONObject
 
 class InboxSampleApplication : Application(), EventHandler {
@@ -25,6 +28,8 @@ class InboxSampleApplication : Application(), EventHandler {
         Emarsys.push.setNotificationEventHandler(this)
         Emarsys.push.setSilentMessageEventHandler(this)
         Emarsys.geofence.setEventHandler(this)
+
+        upgradeSecurityProvider()
     }
 
     private fun createNotificationChannels() {
@@ -59,5 +64,17 @@ class InboxSampleApplication : Application(), EventHandler {
     }
 
     override fun handleEvent(context: Context, eventName: String, payload: JSONObject?) {
+    }
+
+    private fun upgradeSecurityProvider() {
+        ProviderInstaller.installIfNeededAsync(this, object :
+            ProviderInstaller.ProviderInstallListener {
+            override fun onProviderInstalled() {
+
+            }
+            override fun onProviderInstallFailed(errorCode: Int, recoveryIntent: Intent?) {
+                GoogleApiAvailability.getInstance().showErrorNotification(this@InboxSampleApplication, errorCode)
+            }
+        })
     }
 }
