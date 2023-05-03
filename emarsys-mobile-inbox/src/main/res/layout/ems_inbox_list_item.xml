@@ -3,40 +3,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:minHeight="64dp"
+    android:minHeight="50dp"
     android:orientation="horizontal">
 
+    <ImageView
+        android:id="@+id/not_opened_view"
+        android:layout_width="15dp"
+        android:layout_height="match_parent"
+        android:contentDescription="Not opened view" />
+
     <ImageButton
-        android:id="@+id/notification_pin"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:scaleType="center"
+        android:id="@+id/pin_icon_button"
+        style="@style/Emarsys.MessageInbox.ListItem.PinButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="-6dp"
+        android:layout_marginTop="5dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ems_pin_button"
-        style="@style/Emarsys.MessageInbox.ListItem.PinButton" />
+        android:contentDescription="Favorite image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pin_button"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="Image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/emarsys_logo"
+        tools:ignore="ImageContrastCheck" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="1dp">
 
         <TextView
-            android:id="@+id/notification_title"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            tools:text="title" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Title" />
 
         <TextView
-            android:id="@+id/notification_date"
+            android:id="@+id/body"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:maxLines="2"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            tools:text="body" />
+            android:textSize="16sp"
+            tools:text="Body" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/high_priority_icon"
+        style="@style/Emarsys.MessageInbox.ListItem.HighPriorityIcon"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="High priority icon"
+        android:scaleType="center"
+        android:src="@drawable/high_priority_icon"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
 </LinearLayout>

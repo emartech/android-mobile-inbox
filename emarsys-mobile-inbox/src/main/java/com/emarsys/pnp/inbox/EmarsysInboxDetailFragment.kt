@@ -1,89 +1,122 @@
 package com.emarsys.pnp.inbox
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
+import com.emarsys.mobileengage.api.action.ActionModel
+import com.emarsys.mobileengage.api.action.AppEventActionModel
+import com.emarsys.mobileengage.api.action.OpenExternalUrlActionModel
 import com.emarsys.plugnplay.inbox.R
 import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentBinding
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentItemBinding
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 class EmarsysInboxDetailFragment : Fragment() {
-    private val viewModel: EmarsysInboxViewModel by activityViewModels()
-    private var _binding: EmsInboxDetailFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val args: EmarsysInboxDetailFragmentArgs by navArgs()
+    private lateinit var binding: EmsInboxDetailFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = EmsInboxDetailFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View {
+        binding = EmsInboxDetailFragmentBinding.inflate(inflater, container, false)
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
+        val view = binding.root
+
+        Picasso.get()
+            .load(args.inboxMessage.imageUrl)
+            .placeholder(R.drawable.emarsys_logo)
+            .into(binding.image, object : Callback {
+                override fun onSuccess() {
+                    binding.image.scaleType = ImageView.ScaleType.CENTER_CROP
+                }
+
+                override fun onError(e: Exception?) {
+                    binding.image.scaleType = ImageView.ScaleType.FIT_CENTER
+                }
+            })
+        binding.title.text = args.inboxMessage.title
+        binding.body.text = args.inboxMessage.body
+        binding.body.movementMethod = ScrollingMovementMethod()
+        binding.datetime.text = args.inboxMessage.receivedAt
+
+        // TODO: refact
+        binding.btnActionOne.visibility = View.GONE
+        binding.btnActionTwo.visibility = View.GONE
+        binding.btnActionThree.visibility = View.GONE
+
+        val actions = args.inboxMessage.actions ?: listOf()
+
+        if (actions.isNotEmpty()) {
+            actions.forEachIndexed { index, action ->
+                when (index) {
+                    0 -> {
+                        binding.btnActionOne.visibility = View.VISIBLE
+                        binding.btnActionOne.text = action.title
+                        binding.btnActionOne.setOnClickListener {
+                            performInboxAction(action)
+                        }
+                    }
+                    1 -> {
+                        binding.btnActionTwo.visibility = View.VISIBLE
+                        binding.btnActionTwo.text = action.title
+                        binding.btnActionTwo.setOnClickListener {
+                            performInboxAction(action)
+                        }
+                    }
+                    2 -> {
+                        binding.btnActionThree.visibility = View.VISIBLE
+                        binding.btnActionThree.text = action.title
+                        binding.btnActionThree.setOnClickListener {
+                            performInboxAction(action)
+                        }
+                    }
+                    else -> {
+                        print("no action")
+                    }
+                }
+            }
+        }
+
+        binding.toolbar.setNavigationOnClickListener { view.findNavController().popBackStack() }
+
+        return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 
-        binding.pager.adapter = object : RecyclerView.Adapter<EmarsysInboxDetailViewHolder>() {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): EmarsysInboxDetailViewHolder {
-                return EmarsysInboxDetailViewHolder(
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.ems_inbox_detail_fragment_item, parent, false),
-                    this@EmarsysInboxDetailFragment
-                )
+    private fun performInboxAction(action: ActionModel) {
+        when(action) {
+            is OpenExternalUrlActionModel -> {
+                onOpenExternalUrlTriggered(requireContext(), action)
             }
-
-            override fun getItemCount(): Int {
-                return viewModel.messages.value?.count() ?: 0
+            is AppEventActionModel -> {
+//                TODO: callback
             }
-
-            override fun onBindViewHolder(holder: EmarsysInboxDetailViewHolder, position: Int) {
-                viewModel.messages.value?.get(position)?.let { holder.bindTo(it) }
-            }
-        }
-        viewModel.selectedItem.value?.let { binding.pager.setCurrentItem(it, false) }
-
-        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                viewModel.selectedItem.value = binding.pager.currentItem
-            }
-        })
-
-        viewModel.messages.observe(viewLifecycleOwner) {
-            (binding.pager.adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
+            else -> { }
         }
     }
 
-    private class EmarsysInboxDetailViewHolder(itemView: View, val fragment: Fragment) :
-        RecyclerView.ViewHolder(itemView) {
-        val binding = EmsInboxDetailFragmentItemBinding.bind(itemView)
-        val title = binding.title
-        val body = binding.body
-        val image = binding.image
-
-        fun bindTo(message: EmarsysInboxMessage) {
-            title.text = message.title
-            body.text = message.body
-
-            if (message.imageUrl != null) {
-                Glide.with(fragment)
-                    .load(message.imageUrl)
-                    .centerCrop()
-                    .into(image)
-            } else {
-                image.setImageDrawable(null)
-            }
-        }
+    private fun onOpenExternalUrlTriggered(context: Context, actionModel: OpenExternalUrlActionModel) {
+        val uri = Uri.parse(actionModel.url.toString())
+        val externalUrlIntent = Intent(Intent.ACTION_VIEW, uri)
+        context.startActivity(externalUrlIntent)
     }
 }
 

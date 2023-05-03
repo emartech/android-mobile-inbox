@@ -4,4 +4,14 @@
     </style>
     <style name="Emarsys.MessageInbox.ListItem.PinButton" parent="Widget.AppCompat.ImageButton">
     </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/default_color</item>
+        <item name="background">@null</item>
+    </style>
+
+    <style name="Emarsys.MessageInbox.ListItem.HighPriorityIcon" parent="Widget.AppCompat.ImageButton">
+        <item name="tint">@color/ems_high_priority_icon_color</item>
+    </style>
 </resources>

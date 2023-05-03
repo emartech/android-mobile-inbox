@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_color">#32d17e</color>
+    <color name="ems_starHighlightTintColor">#FFD700</color>
+    <color name="ems_highIconTintColor">#F42E17</color>
+</resources>
