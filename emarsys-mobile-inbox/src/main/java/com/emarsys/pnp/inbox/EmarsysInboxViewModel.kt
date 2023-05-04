@@ -16,15 +16,23 @@ class EmarsysInboxViewModel() : ViewModel() {
     }
 
     fun pin(message: EmarsysInboxMessage) {
-        if (message.isPinned)
-            Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id) {
-                // TODO: REFRESH AFTER UNPINNED
-            }
-        else
-            Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id) {
-                // TODO: REFRESH AFTER PINNED
-            }
-        message.copy(isPinned = !message.isPinned).updateInListView()
+        if (message.isPinned) {
+            Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id)
+        } else {
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id)
+        }
+        val updatedMessage = message.copy(isPinned = !message.isPinned)
+        updatePinnedMessageInList(updatedMessage)
+    }
+
+    private fun updatePinnedMessageInList(message: EmarsysInboxMessage) {
+        val list = messages.value?.toMutableList()
+        list?.let {
+            val oldIndex = it.indexOfFirst { item -> item.id == message.id }
+            it[oldIndex] = message
+            val sortedList = it.sortedWith(compareByDescending<EmarsysInboxMessage> { it.isPinned }.thenByDescending { it.receivedAt })
+            messages.value = sortedList
+        }
     }
 
     fun removed(listPosition: Int) {
