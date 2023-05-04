@@ -56,7 +56,14 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
             date.text = message.body
             pinIcon.isSelected = message.isPinned
             highPriorityIcon.isVisible = message.isHighPriority
-            if (!message.isOpened) notOpenedView.setBackgroundColor(itemView.context.resources.getColor(R.color.default_color, itemView.context.theme))
+            if (!message.isOpened) {
+                notOpenedView.setBackgroundColor(
+                    itemView.context.resources.getColor(
+                        R.color.default_color,
+                        itemView.context.theme
+                    )
+                )
+            }
             Picasso.get().load(message.imageUrl)
                 .placeholder(R.drawable.emarsys_logo)
                 .into(image)

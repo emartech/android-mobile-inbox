@@ -22,10 +22,10 @@ class EmarsysInboxViewModel() : ViewModel() {
             Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id)
         }
         val updatedMessage = message.copy(isPinned = !message.isPinned)
-        updatePinnedMessageInList(updatedMessage)
+        updatePinnedMessage(updatedMessage)
     }
 
-    private fun updatePinnedMessageInList(message: EmarsysInboxMessage) {
+    private fun updatePinnedMessage(message: EmarsysInboxMessage) {
         val list = messages.value?.toMutableList()
         list?.let {
             val oldIndex = it.indexOfFirst { item -> item.id == message.id }

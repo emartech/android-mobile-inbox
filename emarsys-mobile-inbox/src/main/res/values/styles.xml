@@ -14,4 +14,9 @@
     <style name="Emarsys.MessageInbox.ListItem.HighPriorityIcon" parent="Widget.AppCompat.ImageButton">
         <item name="tint">@color/ems_high_priority_icon_color</item>
     </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
 </resources>
