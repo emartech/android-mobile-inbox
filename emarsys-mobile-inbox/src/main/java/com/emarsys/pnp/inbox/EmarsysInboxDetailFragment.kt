@@ -2,14 +2,21 @@ package com.emarsys.pnp.inbox
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -53,42 +60,23 @@ class EmarsysInboxDetailFragment : Fragment() {
         binding.body.movementMethod = ScrollingMovementMethod()
         binding.datetime.text = args.inboxMessage.receivedAt
 
-        // TODO: refact
-        binding.btnActionOne.visibility = View.GONE
-        binding.btnActionTwo.visibility = View.GONE
-        binding.btnActionThree.visibility = View.GONE
-
         val actions = args.inboxMessage.actions ?: listOf()
+        actions.forEachIndexed { index, action ->
+            val button = createActionButton(requireContext(), action)
+            binding.buttonContainer.addView(button, index)
 
-        if (actions.isNotEmpty()) {
-            actions.forEachIndexed { index, action ->
-                when (index) {
-                    0 -> {
-                        binding.btnActionOne.visibility = View.VISIBLE
-                        binding.btnActionOne.text = action.title
-                        binding.btnActionOne.setOnClickListener {
-                            performInboxAction(action)
-                        }
-                    }
-                    1 -> {
-                        binding.btnActionTwo.visibility = View.VISIBLE
-                        binding.btnActionTwo.text = action.title
-                        binding.btnActionTwo.setOnClickListener {
-                            performInboxAction(action)
-                        }
-                    }
-                    2 -> {
-                        binding.btnActionThree.visibility = View.VISIBLE
-                        binding.btnActionThree.text = action.title
-                        binding.btnActionThree.setOnClickListener {
-                            performInboxAction(action)
-                        }
-                    }
-                    else -> {
-                        print("no action")
-                    }
-                }
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(binding.buttonContainer)
+
+            if (index == 0) {
+                constraintSet.connect(button.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, (button.layoutParams as ViewGroup.MarginLayoutParams).topMargin)
+            } else {
+                constraintSet.connect(button.id, ConstraintSet.TOP, binding.buttonContainer.getChildAt(index - 1).id, ConstraintSet.BOTTOM, (button.layoutParams as ViewGroup.MarginLayoutParams).topMargin)
             }
+
+            constraintSet.connect(button.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+            constraintSet.connect(button.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+            constraintSet.applyTo(binding.buttonContainer)
         }
 
         binding.toolbar.setNavigationOnClickListener { view.findNavController().popBackStack() }
@@ -96,9 +84,41 @@ class EmarsysInboxDetailFragment : Fragment() {
         return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        (activity as AppCompatActivity).supportActionBar?.show()
+    private fun createActionButton(context: Context, action: ActionModel): Button {
+        val button = Button(context)
+        button.id = View.generateViewId()
+
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.topMargin = dpToPx(8, context.resources)
+        button.layoutParams = layoutParams
+
+        val backgroundDrawable = GradientDrawable()
+        backgroundDrawable.shape = GradientDrawable.RECTANGLE
+        backgroundDrawable.cornerRadius = dpToPx(4, context.resources).toFloat()
+        backgroundDrawable.setColor(resources.getColor(R.color.default_color))
+        button.background = backgroundDrawable
+
+        button.text = action.title
+        button.setTextColor(Color.BLACK)
+        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+        button.isAllCaps = false
+
+        button.setOnClickListener {
+            performInboxAction(action)
+        }
+
+        return button
+    }
+
+    private fun dpToPx(dp: Int, resources: Resources): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
     }
 
     private fun performInboxAction(action: ActionModel) {
