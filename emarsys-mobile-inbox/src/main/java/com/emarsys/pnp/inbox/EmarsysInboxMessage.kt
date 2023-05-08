@@ -21,11 +21,7 @@ data class EmarsysInboxMessage(
     val updatedAt: String? = message.updatedAt?.times(1000)?.let {
         DateFormat.format(dateFormat, it)
     } as String,
-    val isOpened: Boolean = message.tags?.contains(openedTag) ?: false,
-    val isSeen: Boolean = message.tags?.contains(seenTag) ?: false,
-    val isPinned: Boolean = message.tags?.contains(pinnedTag) ?: false,
-    val isDeleted: Boolean = message.tags?.contains(deletedTag) ?: false,
-    val isHighPriority: Boolean = message.tags?.contains(highPriorityTag) ?: false,
+    var tags: MutableList<String> = message.tags?.toMutableList() ?: mutableListOf(),
     val properties: Map<String, String> = message.properties ?: mapOf(),
     @IgnoredOnParcel val actions: @RawValue List<ActionModel>? = message.actions
 ) : Parcelable {
@@ -37,5 +33,25 @@ data class EmarsysInboxMessage(
         const val pinnedTag = "pinned"
         const val deletedTag = "deleted"
         const val highPriorityTag = "high"
+    }
+
+    fun isOpened(): Boolean {
+        return tags.contains(openedTag)
+    }
+
+    fun isSeen(): Boolean {
+        return tags.contains(seenTag)
+    }
+
+    fun isPinned(): Boolean {
+        return tags.contains(pinnedTag)
+    }
+
+    fun isDeleted(): Boolean {
+        return tags.contains(deletedTag)
+    }
+
+    fun isHighPriority(): Boolean {
+        return tags.contains(highPriorityTag)
     }
 }

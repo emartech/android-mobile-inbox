@@ -37,7 +37,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
         override fun areContentsTheSame(oldItem: EmarsysInboxMessage, newItem: EmarsysInboxMessage): Boolean {
             return oldItem.title == newItem.title &&
                     oldItem.receivedAt == newItem.receivedAt &&
-                    oldItem.isPinned == newItem.isPinned
+                    oldItem.isPinned() == newItem.isPinned()
         }
     }
 
@@ -54,9 +54,9 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
         fun bindTo(message: EmarsysInboxMessage) {
             title.text = message.title
             date.text = message.body
-            pinIcon.isSelected = message.isPinned
-            highPriorityIcon.isVisible = message.isHighPriority
-            if (!message.isOpened) {
+            pinIcon.isSelected = message.isPinned()
+            highPriorityIcon.isVisible = message.isHighPriority()
+            if (!message.isOpened()) {
                 notOpenedView.setBackgroundColor(
                     itemView.context.resources.getColor(
                         R.color.default_color,

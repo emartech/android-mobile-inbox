@@ -24,20 +24,20 @@ import com.emarsys.mobileengage.api.action.ActionModel
 import com.emarsys.mobileengage.api.action.AppEventActionModel
 import com.emarsys.mobileengage.api.action.OpenExternalUrlActionModel
 import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentItemBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 class EmarsysInboxDetailFragment : Fragment() {
     private val args: EmarsysInboxDetailFragmentArgs by navArgs()
-    private lateinit var binding: EmsInboxDetailFragmentBinding
+    private lateinit var binding: EmsInboxDetailFragmentItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EmsInboxDetailFragmentBinding.inflate(inflater, container, false)
+        binding = EmsInboxDetailFragmentItemBinding.inflate(inflater, container, false)
 
         (activity as AppCompatActivity).supportActionBar?.hide()
 

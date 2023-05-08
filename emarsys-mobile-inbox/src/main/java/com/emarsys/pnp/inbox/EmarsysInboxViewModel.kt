@@ -16,22 +16,20 @@ class EmarsysInboxViewModel() : ViewModel() {
     }
 
     fun pin(message: EmarsysInboxMessage) {
-        if (message.isPinned) {
-            Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id)
+        if (message.isPinned()) {
+            Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id) {
+                if (it == null) {
+                    message.tags.remove(EmarsysInboxMessage.pinnedTag)
+                    message.updateInListView()
+                }
+            }
         } else {
-            Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id)
-        }
-        val updatedMessage = message.copy(isPinned = !message.isPinned)
-        updatePinnedMessage(updatedMessage)
-    }
-
-    private fun updatePinnedMessage(message: EmarsysInboxMessage) {
-        val list = messages.value?.toMutableList()
-        list?.let {
-            val oldIndex = it.indexOfFirst { item -> item.id == message.id }
-            it[oldIndex] = message
-            val sortedList = it.sortedWith(compareByDescending<EmarsysInboxMessage> { it.isPinned }.thenByDescending { it.receivedAt })
-            messages.value = sortedList
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id) {
+                if (it == null) {
+                    message.tags.add(EmarsysInboxMessage.pinnedTag)
+                    message.updateInListView()
+                }
+            }
         }
     }
 
@@ -43,14 +41,19 @@ class EmarsysInboxViewModel() : ViewModel() {
     }
 
     fun opened(message: EmarsysInboxMessage) {
-        if (!message.isOpened) {
-            Emarsys.messageInbox.addTag(EmarsysInboxMessage.openedTag, message.id)
+        if (!message.isOpened()) {
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.openedTag, message.id) {
+                if (it == null) {
+                    message.tags.add(EmarsysInboxMessage.openedTag)
+                    message.updateInListView()
+                }
+            }
         }
         selectedItem.value = messages.value?.indexOfFirst { it.id == message.id }
     }
 
     fun seen(message: EmarsysInboxMessage) {
-        if (!message.isSeen) {
+        if (!message.isSeen()) {
             Emarsys.messageInbox.addTag(EmarsysInboxMessage.seenTag, message.id)
         }
     }
