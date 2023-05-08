@@ -12,7 +12,7 @@
     </style>
 
     <style name="Emarsys.MessageInbox.ListItem.HighPriorityIcon" parent="Widget.AppCompat.ImageButton">
-        <item name="tint">@color/ems_high_priority_icon_color</item>
+        <item name="tint">@color/ems_highIconTintColor</item>
     </style>
 
     <style name="roundedImageView" parent="">

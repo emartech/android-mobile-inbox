@@ -34,8 +34,9 @@
         android:layout_marginBottom="5dp"
         android:scaleType="centerCrop"
         android:background="@android:color/white"
-        app:cardCornerRadius="8dp"
+        app:cornerSize="8dp"
         app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:strokeColor="@null"
         app:srcCompat="@drawable/emarsys_logo" />
 
     <LinearLayout
