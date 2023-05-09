@@ -48,7 +48,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
         private val date: TextView = binding.body
         private val pinIcon: ImageButton = binding.pinIconButton
         private val highPriorityIcon: ImageView = binding.highPriorityIcon
-        private val image: ImageView = binding.image
+        private val icon: ImageView = binding.icon
         private val notOpenedView: ImageView = binding.notOpenedView
 
         fun bindTo(message: EmarsysInboxMessage) {
@@ -64,9 +64,11 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
                     )
                 )
             }
-            Picasso.get().load(message.imageUrl)
+            val imageUrl = message.properties["icon"].takeIf { !it.isNullOrBlank() } ?: message.imageUrl
+            Picasso.get()
+                .load(imageUrl)
                 .placeholder(R.drawable.emarsys_logo)
-                .into(image)
+                .into(icon)
             viewModel.seen(message)
             pinIcon.setOnClickListener { viewModel.pin(message) }
             view.setOnClickListener {
