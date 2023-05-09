@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/inboxListFragment">
+
+    <fragment
+        android:id="@+id/inboxListFragment"
+        android:name="com.emarsys.pnp.inbox.EmarsysInboxListFragment"
+        android:label="EmarsysInboxListFragment">
+        <action
+            android:id="@+id/action_inboxListFragment_to_inboxDetailFragment"
+            app:destination="@id/inboxDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/inboxDetailFragment"
+        android:name="com.emarsys.pnp.inbox.EmarsysInboxDetailFragment"
+        android:label="EmarsysInboxDetailFragmentArgs">
+        <argument
+            android:name="inboxMessage"
+            app:argType="com.emarsys.pnp.inbox.EmarsysInboxMessage" />
+    </fragment>
+</navigation>

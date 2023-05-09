@@ -16,39 +16,60 @@ class EmarsysInboxViewModel() : ViewModel() {
     }
 
     fun pin(message: EmarsysInboxMessage) {
-        if (message.isPinned)
-            Emarsys.messageInbox.removeTag("pinned", message.id)
-        else
-            Emarsys.messageInbox.addTag("pinned", message.id)
-        message.copy(isPinned = !message.isPinned).updateInListView()
+        if (message.isPinned()) {
+            Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id) {
+                if (it == null) {
+                    message.tags.remove(EmarsysInboxMessage.pinnedTag)
+                    message.updateInListView()
+                }
+            }
+        } else {
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id) {
+                if (it == null) {
+                    message.tags.add(EmarsysInboxMessage.pinnedTag)
+                    message.updateInListView()
+                }
+            }
+        }
     }
 
     fun removed(listPosition: Int) {
         messages.value?.get(listPosition)?.let {
-            Emarsys.messageInbox.addTag("deleted", it.id)
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.deletedTag, it.id)
             it.removeFromListView()
         }
     }
 
     fun opened(message: EmarsysInboxMessage) {
-        if (!message.isOpened) {
-            Emarsys.messageInbox.addTag("opened", message.id)
+        if (!message.isOpened()) {
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.openedTag, message.id) {
+                if (it == null) {
+                    message.tags.add(EmarsysInboxMessage.openedTag)
+                    message.updateInListView()
+                }
+            }
         }
         selectedItem.value = messages.value?.indexOfFirst { it.id == message.id }
     }
 
+    fun seen(message: EmarsysInboxMessage) {
+        if (!message.isSeen()) {
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.seenTag, message.id)
+        }
+    }
 
     fun refresh() {
         isRefreshing.value = true
-        Emarsys.messageInbox.fetchMessages {
+        Emarsys.messageInbox.fetchMessages { messages ->
             isRefreshing.value = false
-            it.result?.let { notificationStatus ->
-                messages.value = notificationStatus.messages
-                    .filter { !(it.tags?.contains("deleted") ?: false) }
+            messages.result?.let { notificationStatus ->
+                this.messages.value = notificationStatus.messages
+                    .filter { !(it.tags?.contains(EmarsysInboxMessage.deletedTag) ?: false) }
                     .sortedByDescending { it.receivedAt }
+                    .sortedByDescending { it.tags?.contains(EmarsysInboxMessage.pinnedTag) }
                     .map { EmarsysInboxMessage(it) } as MutableList
             }
-            it.errorCause?.let { cause ->
+            messages.errorCause?.let { cause ->
                 error.value = "Error fetching messages: ${cause.message}"
             }
         }
