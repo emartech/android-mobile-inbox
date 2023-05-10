@@ -31,6 +31,17 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
 
         val view = binding.root
 
+        if (EmarsysInboxConfig.headerView != null) {
+            binding.header.visibility = View.GONE
+            val headerView = EmarsysInboxConfig.headerView?.invoke(requireContext())
+            binding.container.addView(headerView, 0)
+        } else {
+            binding.header.setBackgroundColor(EmarsysInboxConfig.headerBackgroundColor)
+            binding.header.setTextColor(EmarsysInboxConfig.headerForegroundColor)
+        }
+
+        binding.recycler.setBackgroundColor(EmarsysInboxConfig.bodyBackgroundColor)
+
         binding.recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recycler.adapter = EmarsysInboxListAdapter(viewModel) {
             view.findNavController().navigate(EmarsysInboxListFragmentDirections.actionInboxListFragmentToInboxDetailFragment(it))
@@ -44,6 +55,7 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
             (binding.recycler.adapter as EmarsysInboxListAdapter).submitList(it)
         }
 
+        binding.swipeRefreshLayout.setColorSchemeColors(EmarsysInboxConfig.activityIndicatorColor)
         viewModel.isRefreshing.observe(viewLifecycleOwner) {
             binding.swipeRefreshLayout.isRefreshing = it
         }

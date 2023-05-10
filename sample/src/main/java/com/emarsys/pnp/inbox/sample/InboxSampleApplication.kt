@@ -5,11 +5,14 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.emarsys.Emarsys
 import com.emarsys.config.EmarsysConfig
 import com.emarsys.mobileengage.api.event.EventHandler
+import com.emarsys.pnp.inbox.EmarsysInboxConfig
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.security.ProviderInstaller
 import org.json.JSONObject
@@ -28,6 +31,14 @@ class InboxSampleApplication : Application(), EventHandler {
         Emarsys.push.setNotificationEventHandler(this)
         Emarsys.push.setSilentMessageEventHandler(this)
         Emarsys.geofence.setEventHandler(this)
+
+        EmarsysInboxConfig.actionEventHandler = { context, eventName, payload ->
+            Log.i("PNP-INBOX", "eventName: $eventName, payload: $payload")
+        }
+        EmarsysInboxConfig.actionButtonStyler = { button ->
+            button.setTextColor(Color.WHITE)
+            button.cornerRadius = 10
+        }
 
         upgradeSecurityProvider()
     }
