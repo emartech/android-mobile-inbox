@@ -17,9 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInboxViewModel by activityViewModels()
     private lateinit var binding: EmsInboxListFragmentBinding
     companion object {
-        private lateinit var instance_: EmarsysInboxListFragment
-        val instance get() = instance_
-
         fun newInstance(@IdRes actionId: Int): EmarsysInboxListFragment {
             val fragment = EmarsysInboxListFragment()
 
@@ -36,8 +33,6 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        instance_ = this
-
         binding = EmsInboxListFragmentBinding.inflate(inflater, container, false)
 
         val view = binding.root
