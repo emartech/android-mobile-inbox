@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
@@ -18,6 +19,16 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
     companion object {
         private lateinit var instance_: EmarsysInboxListFragment
         val instance get() = instance_
+
+        fun newInstance(@IdRes actionId: Int): EmarsysInboxListFragment {
+            val fragment = EmarsysInboxListFragment()
+
+            val args = Bundle()
+            args.putInt("actionId", actionId)
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 
     override fun onCreateView(
