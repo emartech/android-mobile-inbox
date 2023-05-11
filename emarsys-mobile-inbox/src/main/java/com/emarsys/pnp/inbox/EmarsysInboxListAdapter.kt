@@ -72,14 +72,8 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
             highPriorityIcon.isVisible = message.isHighPriority()
             highPriorityIcon.setImageDrawable(ContextCompat.getDrawable(itemView.context, EmarsysInboxConfig.highPriorityImage))
 
-            if (!message.isOpened()) {
-                notOpenedView.setBackgroundColor(
-                    itemView.context.resources.getColor(
-                        EmarsysInboxConfig.notOpenedViewColor,
-                        itemView.context.theme
-                    )
-                )
-            }
+            if (!message.isOpened()) notOpenedView.setBackgroundColor(EmarsysInboxConfig.notOpenedViewColor)
+
             val imageUrl = message.properties["icon"].takeIf { !it.isNullOrBlank() } ?: message.imageUrl
             ContextCompat.getDrawable(itemView.context, EmarsysInboxConfig.defaultImage)?.let {
                 Picasso.get().load(imageUrl)
