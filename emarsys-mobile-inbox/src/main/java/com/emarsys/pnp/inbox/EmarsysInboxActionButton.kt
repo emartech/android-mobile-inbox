@@ -36,6 +36,16 @@ class EmarsysInboxActionButton(
             field = value
             setButtonCornerRadius(value)
         }
+    var borderColor: Int = R.color.default_color
+        set(value) {
+            field = value
+            backgroundDrawable.setStroke(borderWidth, borderColor)
+        }
+    var borderWidth: Int = 0
+        set(value) {
+            field = value
+            backgroundDrawable.setStroke(borderWidth, borderColor)
+        }
 
     init {
         id = View.generateViewId()
