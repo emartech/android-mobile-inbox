@@ -1,5 +1,6 @@
 package com.emarsys.pnp.inbox
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -72,13 +73,13 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
             highPriorityIcon.isVisible = message.isHighPriority()
             highPriorityIcon.setImageDrawable(ContextCompat.getDrawable(itemView.context, EmarsysInboxConfig.highPriorityImage))
 
-            if (!message.isOpened()) notOpenedView.setBackgroundColor(EmarsysInboxConfig.notOpenedViewColor)
+            notOpenedView.setBackgroundColor(if (message.isOpened()) Color.TRANSPARENT else EmarsysInboxConfig.notOpenedViewColor)
 
             val imageUrl = message.properties["icon"].takeIf { !it.isNullOrBlank() } ?: message.imageUrl
-            ContextCompat.getDrawable(itemView.context, EmarsysInboxConfig.defaultImage)?.let {
-                Picasso.get().load(imageUrl)
-                    .placeholder(it).into(icon)
-            }
+            Picasso.get()
+                .load(imageUrl)
+                .placeholder(EmarsysInboxConfig.defaultImage)
+                .into(icon)
             icon.setBackgroundColor(EmarsysInboxConfig.imageCellBackgroundColor)
             pinIcon.setOnClickListener { viewModel.pin(message) }
 
