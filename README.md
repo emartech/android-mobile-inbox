@@ -23,9 +23,40 @@ Requirements
 - Requires compileSdkVersion 31 or higher.
 - Emarsys SDK is using AndroidX.
 
+## Configurable variables
+----
+```kotlin
+EmarsysInboxConfig.headerView = { context ->
+  createHeaderView(context)
+}
+
+EmarsysInboxConfig.headerBackgroundColor = <COLOR>
+EmarsysInboxConfig.headerForegroundColor = <COLOR>
+EmarsysInboxConfig.bodyBackgroundColor = <COLOR>
+EmarsysInboxConfig.bodyForegroundColor = <COLOR>
+EmarsysInboxConfig.bodyTintColor = <COLOR>
+EmarsysInboxConfig.bodyHighlightTintColor = <COLOR>
+EmarsysInboxConfig.activityIndicatorColor = <COLOR>
+EmarsysInboxConfig.notOpenedViewColor = <COLOR>
+EmarsysInboxConfig.imageCellBackgroundColor = <COLOR>
+
+EmarsysInboxConfig.favImageOff = <RESOURCE_ID>
+EmarsysInboxConfig.favImageOn = <RESOURCE_ID>
+EmarsysInboxConfig.defaultImage = <RESOURCE_ID>
+EmarsysInboxConfig.highPriorityImage = <RESOURCE_ID>
+
+EmarsysInboxConfig.actionEventHandler = { context, eventName, payload ->
+  
+}
+
+EmarsysInboxConfig.actionButtonStyler = { button ->
+  button.setTextColor(Color.WHITE)
+  button.cornerRadius = 10
+}
+```
+
 TODO
 ----
-- Fully styleable Widgets.
 - Distribution with AAR/Maven.
 
 Submodules

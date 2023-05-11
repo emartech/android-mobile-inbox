@@ -86,5 +86,3 @@ class EmarsysInboxViewModel() : ViewModel() {
         list?.indexOfFirst { it.id == this.id }?.let { list.removeAt(it); messages.value = list }
     }
 }
-
-
