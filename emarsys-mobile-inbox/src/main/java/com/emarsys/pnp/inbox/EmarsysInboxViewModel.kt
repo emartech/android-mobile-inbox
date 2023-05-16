@@ -49,7 +49,6 @@ class EmarsysInboxViewModel() : ViewModel() {
                 }
             }
         }
-        selectedItem.value = messages.value?.indexOfFirst { it.id == message.id }
     }
 
     fun seen(message: EmarsysInboxMessage) {
