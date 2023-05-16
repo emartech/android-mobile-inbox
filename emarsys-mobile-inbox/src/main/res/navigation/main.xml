@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/inboxDetailFragment"
         android:name="com.emarsys.pnp.inbox.EmarsysInboxDetailFragment"
-        android:label="EmarsysInboxDetailFragmentArgs">
+        android:label="EmarsysInboxDetailFragment">
     </fragment>
 </navigation>

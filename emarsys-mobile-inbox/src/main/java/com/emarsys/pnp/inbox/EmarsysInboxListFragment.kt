@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,20 +15,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emarsys.plugnplay.inbox.databinding.EmsInboxListFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
-open class EmarsysInboxListFragment : Fragment() {
+open class EmarsysInboxListFragment(private val directionToDetailFragment: NavDirections? = null) : Fragment() {
     val viewModel: EmarsysInboxViewModel by activityViewModels()
     lateinit var binding: EmsInboxListFragmentBinding
-    companion object {
-        fun newInstance(@IdRes actionId: Int): EmarsysInboxListFragment {
-            val fragment = EmarsysInboxListFragment()
-
-            val args = Bundle()
-            args.putInt("actionId", actionId)
-            fragment.arguments = args
-
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,7 +81,9 @@ open class EmarsysInboxListFragment : Fragment() {
 
     open fun onItemClick(message: EmarsysInboxMessage) {
         viewModel.selectedItem.value = viewModel.messages.value?.indexOfFirst { it.id == message.id }
-        binding.root.findNavController().navigate(EmarsysInboxListFragmentDirections.actionInboxListFragmentToInboxDetailFragment())
+        binding.root.findNavController().navigate(
+            directionToDetailFragment ?:
+            EmarsysInboxListFragmentDirections.actionInboxListFragmentToInboxDetailFragment())
     }
 
     override fun onResume() {
