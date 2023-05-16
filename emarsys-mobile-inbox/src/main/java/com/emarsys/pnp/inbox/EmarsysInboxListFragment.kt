@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.emarsys.plugnplay.inbox.databinding.EmsInboxListFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
-class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInboxViewModel by activityViewModels()
+open class EmarsysInboxListFragment : Fragment() {
+    val viewModel: EmarsysInboxViewModel by activityViewModels()
     private lateinit var binding: EmsInboxListFragmentBinding
     companion object {
         fun newInstance(@IdRes actionId: Int): EmarsysInboxListFragment {
@@ -49,9 +50,7 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
         binding.recycler.setBackgroundColor(EmarsysInboxConfig.bodyBackgroundColor)
 
         binding.recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        binding.recycler.adapter = EmarsysInboxListAdapter(viewModel) {
-            view.findNavController().navigate(EmarsysInboxListFragmentDirections.actionInboxListFragmentToInboxDetailFragment(it))
-        }
+        binding.recycler.adapter = EmarsysInboxListAdapter(viewModel) { onItemClick(it) }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.refresh()
@@ -88,6 +87,11 @@ class EmarsysInboxListFragment : Fragment() {private val viewModel: EmarsysInbox
         }).attachToRecyclerView(binding.recycler)
 
         return view
+    }
+
+    open fun onItemClick(message: EmarsysInboxMessage) {
+        viewModel.selectedItem.value = viewModel.messages.value?.indexOfFirst { it.id == message.id }
+        binding.root.findNavController().navigate(EmarsysInboxListFragmentDirections.actionInboxListFragmentToInboxDetailFragment())
     }
 
     override fun onResume() {

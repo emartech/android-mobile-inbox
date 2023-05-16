@@ -18,8 +18,5 @@
         android:id="@+id/inboxDetailFragment"
         android:name="com.emarsys.pnp.inbox.EmarsysInboxDetailFragment"
         android:label="EmarsysInboxDetailFragmentArgs">
-        <argument
-            android:name="inboxMessage"
-            app:argType="com.emarsys.pnp.inbox.EmarsysInboxMessage" />
     </fragment>
 </navigation>
