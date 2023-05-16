@@ -11,7 +11,7 @@ import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentBinding
 
 open class EmarsysInboxDetailFragment : Fragment() {
     val viewModel: EmarsysInboxViewModel by activityViewModels()
-    private lateinit var binding: EmsInboxDetailFragmentBinding
+    lateinit var binding: EmsInboxDetailFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
