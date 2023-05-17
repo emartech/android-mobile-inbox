@@ -59,6 +59,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
             body.movementMethod = ScrollingMovementMethod()
             datetime.text = message.receivedAt
 
+            buttonContainer.removeAllViews()
             val actions = message.actions ?: listOf()
             actions.forEachIndexed { index, action ->
                 val button = EmarsysInboxActionButton(context)
