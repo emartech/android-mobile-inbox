@@ -7,23 +7,24 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxFragmentDetailBinding
 
 open class EmarsysInboxDetailFragment : Fragment() {
     val viewModel: EmarsysInboxViewModel by activityViewModels()
-    lateinit var binding: EmsInboxDetailFragmentBinding
+    lateinit var binding: EmsInboxFragmentDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EmsInboxDetailFragmentBinding.inflate(inflater, container, false)
+        binding = EmsInboxFragmentDetailBinding.inflate(inflater, container, false)
 
         val view = binding.root
 
         binding.toolbar.setNavigationOnClickListener { view.findNavController().popBackStack() }
 
+        binding.pager.setBackgroundColor(EmarsysInboxConfig.bodyBackgroundColor)
         binding.pager.adapter = EmarsysInboxDetailAdapter(requireContext(), viewModel)
         viewModel.selectedItem.value?.let { binding.pager.setCurrentItem(it, false) }
 

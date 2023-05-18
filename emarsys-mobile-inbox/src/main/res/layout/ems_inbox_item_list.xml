@@ -15,7 +15,7 @@
 
     <ImageButton
         android:id="@+id/pin_icon_button"
-        style="@style/Emarsys.MessageInbox.ListItem.PinButton"
+        style="@style/Emarsys.Inbox.ListItem.PinButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="2dp"
@@ -23,7 +23,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="Favorite image"
         android:scaleType="centerCrop"
-        android:src="@drawable/pin_button"
+        android:src="@drawable/ems_inbox_star_outline"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -36,9 +36,9 @@
         android:scaleType="centerCrop"
         android:background="@android:color/white"
         app:cornerSize="8dp"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
+        app:shapeAppearanceOverlay="@style/Emarsys.Inbox.ListItem.RoundedImageView"
         app:strokeColor="@null"
-        app:srcCompat="@drawable/emarsys_logo" />
+        app:srcCompat="@drawable/ems_inbox_logo" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -72,7 +72,7 @@
 
     <ImageView
         android:id="@+id/high_priority_icon"
-        style="@style/Emarsys.MessageInbox.ListItem.HighPriorityIcon"
+        style="@style/Emarsys.Inbox.ListItem.HighPriorityIcon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="5dp"
@@ -80,7 +80,7 @@
         android:background="@android:color/transparent"
         android:contentDescription="High priority icon"
         android:scaleType="center"
-        android:src="@drawable/high_priority_icon"
+        android:src="@drawable/ems_inbox_high_priority_icon"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
 </LinearLayout>

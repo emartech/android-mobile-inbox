@@ -8,3 +8,5 @@
 .externalNativeBuild
 .cxx
 sample/google-services.json
+sample/local.properties
+sample/.idea/

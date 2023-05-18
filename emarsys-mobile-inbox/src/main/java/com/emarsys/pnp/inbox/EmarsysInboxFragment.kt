@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import com.emarsys.plugnplay.inbox.R
 
-class EmarsysInboxFragment : Fragment() {
+open class EmarsysInboxFragment : Fragment() {
     private val viewModel: EmarsysInboxViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -23,7 +23,7 @@ class InboxSampleApplication : Application() {
             Log.i("PNP-INBOX", "eventName: $eventName, payload: $payload")
         }
         EmarsysInboxConfig.actionButtonStyler = { button ->
-            button.setTextColor(Color.WHITE)
+            button.setBackgroundColor(Color.WHITE)
             button.cornerRadius = 10
         }
 

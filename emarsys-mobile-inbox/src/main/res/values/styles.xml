@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Emarsys.MessageInbox" parent="android:Widget">
+    <style name="Emarsys.Inbox" parent="android:Widget">
     </style>
-    <style name="Emarsys.MessageInbox.ListItem.PinButton" parent="Widget.AppCompat.ImageButton">
-    </style>
-
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <!-- Customize color of navigation drawer icon and back arrow -->
-        <item name="colorControlNormal">@color/default_color</item>
+    <style name="Emarsys.Inbox.ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">?attr/colorPrimary</item>
         <item name="background">@null</item>
     </style>
-
-    <style name="Emarsys.MessageInbox.ListItem.HighPriorityIcon" parent="Widget.AppCompat.ImageButton">
-        <item name="tint">@color/ems_highIconTintColor</item>
+    <style name="Emarsys.Inbox.ListItem.PinButton" parent="Widget.AppCompat.ImageButton">
     </style>
-
-    <style name="roundedImageView" parent="">
+    <style name="Emarsys.Inbox.ListItem.HighPriorityIcon" parent="Widget.AppCompat.ImageButton">
+        <item name="tint">@color/ems_inbox_high_priority_icon</item>
+    </style>
+    <style name="Emarsys.Inbox.ListItem.RoundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
