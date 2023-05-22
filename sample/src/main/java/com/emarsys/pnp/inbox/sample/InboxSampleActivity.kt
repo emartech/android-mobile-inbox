@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.emarsys.Emarsys
 import com.emarsys.plugnplay.inbox.R
+import com.emarsys.pnp.inbox.EmarsysInboxActivity
 
-class InboxSampleActivity : AppCompatActivity() {
+class InboxSampleActivity : EmarsysInboxActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.hide()
-        setContentView(R.layout.ems_inbox_fragment_holder)
 
         Emarsys.setContact(100010824, "biancalui")
     }

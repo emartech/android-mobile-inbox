@@ -9,11 +9,9 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/default_color"
         android:gravity="center"
         android:padding="16dp"
         android:text="Inbox"
-        android:textColor="@android:color/white"
         android:textSize="24sp" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

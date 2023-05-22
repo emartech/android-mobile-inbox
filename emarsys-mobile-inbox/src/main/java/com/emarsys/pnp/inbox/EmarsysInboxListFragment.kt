@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavDirections
@@ -12,19 +11,19 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxListFragmentBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 
 open class EmarsysInboxListFragment(private val directionToDetailFragment: NavDirections? = null) : Fragment() {
     val viewModel: EmarsysInboxViewModel by activityViewModels()
-    lateinit var binding: EmsInboxListFragmentBinding
+    lateinit var binding: EmsInboxFragmentListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = EmsInboxListFragmentBinding.inflate(inflater, container, false)
+        binding = EmsInboxFragmentListBinding.inflate(inflater, container, false)
 
         val view = binding.root
 

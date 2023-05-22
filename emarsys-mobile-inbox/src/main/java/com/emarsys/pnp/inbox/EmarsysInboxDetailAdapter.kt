@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxDetailFragmentItemBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxItemDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -19,7 +19,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.ems_inbox_detail_fragment_item, parent, false),
+                .inflate(R.layout.ems_inbox_item_detail, parent, false),
             context
         )
     }
@@ -34,7 +34,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
     override fun getItemCount(): Int = viewModel.messages.value?.count() ?: 0
 
     class ViewHolder(view: View, private val context: Context) : RecyclerView.ViewHolder(view) {
-        private val binding = EmsInboxDetailFragmentItemBinding.bind(view)
+        private val binding = EmsInboxItemDetailBinding.bind(view)
         private val image: ImageView = binding.image
         private val title: TextView = binding.title
         private val body: TextView = binding.body
@@ -44,7 +44,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
         fun bindTo(message: EmarsysInboxMessage) {
             Picasso.get()
                 .load(message.imageUrl)
-                .placeholder(R.drawable.emarsys_logo)
+                .placeholder(R.drawable.ems_inbox_logo)
                 .into(image, object : Callback {
                     override fun onSuccess() {
                         image.scaleType = ImageView.ScaleType.CENTER_CROP

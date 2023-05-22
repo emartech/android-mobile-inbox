@@ -13,13 +13,12 @@
         android:layout_height="0dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:background="@android:color/white"
         app:layout_constraintBottom_toTopOf="@+id/content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintDimensionRatio="H,10:5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/emarsys_logo" />
+        tools:srcCompat="@drawable/ems_inbox_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/content"

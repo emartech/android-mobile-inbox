@@ -17,10 +17,10 @@ object EmarsysInboxConfig {
     var activityIndicatorColor: Int = Color.DKGRAY
     var notOpenedViewColor: Int = Color.parseColor("#5F9F9F")
     var imageCellBackgroundColor: Int = Color.WHITE
-    var favImageOff: Int = R.drawable.pin_button
-    var favImageOn: Int = R.drawable.pin_button
-    var defaultImage: Int = R.drawable.emarsys_logo
-    var highPriorityImage: Int = R.drawable.high_priority_icon
+    var favImageOff: Int = R.drawable.ems_inbox_star_outline
+    var favImageOn: Int = R.drawable.ems_inbox_star
+    var defaultImage: Int = R.drawable.ems_inbox_logo
+    var highPriorityImage: Int = R.drawable.ems_inbox_high_priority_icon
     var actionEventHandler: ((Context, String, JSONObject?) -> Unit)? = null
     var actionButtonStyler: ((EmarsysInboxActionButton) -> Unit)? = null
 }

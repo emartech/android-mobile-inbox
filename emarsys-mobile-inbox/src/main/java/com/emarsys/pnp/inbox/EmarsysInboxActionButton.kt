@@ -36,7 +36,7 @@ class EmarsysInboxActionButton(
             field = value
             setButtonCornerRadius(value)
         }
-    var borderColor: Int = R.color.default_color
+    var borderColor: Int = Color.TRANSPARENT
         set(value) {
             field = value
             backgroundDrawable.setStroke(borderWidth, borderColor)
@@ -60,14 +60,12 @@ class EmarsysInboxActionButton(
 
         backgroundDrawable = GradientDrawable()
         backgroundDrawable.shape = GradientDrawable.RECTANGLE
-        setBackgroundColor(ContextCompat.getColor(context, R.color.default_color))
-        setButtonCornerRadius(cornerRadius)
         background = backgroundDrawable
 
         gravity = Gravity.CENTER
 
         text = action?.title
-        setTextColor(Color.BLACK)
+        setTextColor(EmarsysInboxConfig.bodyTintColor)
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
         isAllCaps = false
 

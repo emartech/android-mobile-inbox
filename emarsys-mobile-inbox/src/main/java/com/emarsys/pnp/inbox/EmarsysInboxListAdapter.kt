@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxListItemBinding
+import com.emarsys.plugnplay.inbox.databinding.EmsInboxItemListBinding
 import com.squareup.picasso.Picasso
 
 class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, private val listener: (EmarsysInboxMessage) -> Unit) :
@@ -22,7 +22,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.ems_inbox_list_item, parent, false),
+                .inflate(R.layout.ems_inbox_item_list, parent, false),
             viewModel, listener
         )
     }
@@ -45,7 +45,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
 
     class ViewHolder(private val view: View, private val viewModel: EmarsysInboxViewModel, val listener: (EmarsysInboxMessage) -> Unit) :
         RecyclerView.ViewHolder(view) {
-        private val binding = EmsInboxListItemBinding.bind(view)
+        private val binding = EmsInboxItemListBinding.bind(view)
         private val title: TextView = binding.title
         private val body: TextView = binding.body
         private val pinIcon: ImageButton = binding.pinIconButton
