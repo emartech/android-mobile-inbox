@@ -4,7 +4,6 @@
     </style>
     <style name="Emarsys.Inbox.ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="colorControlNormal">?attr/colorPrimary</item>
-        <item name="background">@null</item>
     </style>
     <style name="Emarsys.Inbox.ListItem.PinButton" parent="Widget.AppCompat.ImageButton">
     </style>
