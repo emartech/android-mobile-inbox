@@ -74,7 +74,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
 
             notOpenedView.setBackgroundColor(if (message.isOpened()) Color.TRANSPARENT else EmarsysInboxConfig.notOpenedViewColor)
 
-            val imageUrl = message.properties["icon"].takeIf { !it.isNullOrBlank() } ?: message.imageUrl
+            val imageUrl = (message.properties["icon"] ?: message.imageUrl).takeIf { !it.isNullOrBlank() }
             Picasso.get()
                 .load(imageUrl)
                 .placeholder(EmarsysInboxConfig.defaultImage)

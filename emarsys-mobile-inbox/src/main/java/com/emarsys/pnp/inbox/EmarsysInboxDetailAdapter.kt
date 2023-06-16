@@ -42,7 +42,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
 
         fun bindTo(message: EmarsysInboxMessage) {
             Picasso.get()
-                .load(message.imageUrl)
+                .load(message.imageUrl.takeIf { !it.isNullOrBlank() })
                 .placeholder(R.drawable.ems_inbox_logo)
                 .into(image, object : Callback {
                     override fun onSuccess() {

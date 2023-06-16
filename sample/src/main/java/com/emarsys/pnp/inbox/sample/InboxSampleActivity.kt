@@ -8,6 +8,6 @@ class InboxSampleActivity : EmarsysInboxActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Emarsys.setContact(100010824, "biancalui")
+        Emarsys.setContact(100009769, "B8mau1nMO8PilvTp6P") // demoapp@emarsys.com
     }
 }

@@ -15,7 +15,7 @@ class InboxSampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         val config = EmarsysConfig(application=this,
-            applicationCode="EMS98-029BE",
+            applicationCode="EMS55-DA3B5",
             verboseConsoleLoggingEnabled= true)
         Emarsys.setup(config)
 
