@@ -12,8 +12,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxItemListBinding
+import com.emarsys.pnp.inbox.databinding.EmsInboxItemListBinding
 import com.squareup.picasso.Picasso
 
 class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, private val listener: (EmarsysInboxMessage) -> Unit) :
@@ -75,7 +74,7 @@ class EmarsysInboxListAdapter(private val viewModel: EmarsysInboxViewModel, priv
 
             notOpenedView.setBackgroundColor(if (message.isOpened()) Color.TRANSPARENT else EmarsysInboxConfig.notOpenedViewColor)
 
-            val imageUrl = message.properties["icon"].takeIf { !it.isNullOrBlank() } ?: message.imageUrl
+            val imageUrl = (message.properties["icon"] ?: message.imageUrl).takeIf { !it.isNullOrBlank() }
             Picasso.get()
                 .load(imageUrl)
                 .placeholder(EmarsysInboxConfig.defaultImage)

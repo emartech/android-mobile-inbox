@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxItemDetailBinding
+import com.emarsys.pnp.inbox.databinding.EmsInboxItemDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -43,7 +42,7 @@ class EmarsysInboxDetailAdapter(private val context: Context, private val viewMo
 
         fun bindTo(message: EmarsysInboxMessage) {
             Picasso.get()
-                .load(message.imageUrl)
+                .load(message.imageUrl.takeIf { !it.isNullOrBlank() })
                 .placeholder(R.drawable.ems_inbox_logo)
                 .into(image, object : Callback {
                     override fun onSuccess() {

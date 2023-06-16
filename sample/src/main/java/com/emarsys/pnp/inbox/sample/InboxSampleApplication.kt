@@ -15,11 +15,11 @@ class InboxSampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         val config = EmarsysConfig(application=this,
-            applicationCode="EMS98-029BE",
+            applicationCode="EMS55-DA3B5",
             verboseConsoleLoggingEnabled= true)
         Emarsys.setup(config)
 
-        EmarsysInboxConfig.actionEventHandler = { context, eventName, payload ->
+        EmarsysInboxConfig.actionEventHandler = { _, eventName, payload ->
             Log.i("PNP-INBOX", "eventName: $eventName, payload: $payload")
         }
         EmarsysInboxConfig.actionButtonStyler = { button ->

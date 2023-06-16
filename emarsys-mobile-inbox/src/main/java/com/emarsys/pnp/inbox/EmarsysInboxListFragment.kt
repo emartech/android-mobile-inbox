@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxFragmentListBinding
+import com.emarsys.pnp.inbox.databinding.EmsInboxFragmentListBinding
 import com.google.android.material.snackbar.Snackbar
 
 open class EmarsysInboxListFragment(private val directionToDetailFragment: NavDirections? = null) : Fragment() {
@@ -71,7 +71,7 @@ open class EmarsysInboxListFragment(private val directionToDetailFragment: NavDi
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.removed(viewHolder.adapterPosition)
+                viewModel.removed(viewHolder.bindingAdapterPosition)
             }
         }).attachToRecyclerView(binding.recycler)
 

@@ -1,24 +1,21 @@
 #!/usr/bin/env python3
-USAGE = '''
-Auto-generate Gradle file with current Emarsys SDK version from the Github API.
-
+USAGE = '''Auto-generate Gradle file with current Emarsys SDK version from the Github API.
 Usage:
-    ./gradle/update.py          # prints output to stdout
-    ./gradle/update.py -u       # updates version.gradle file in place 
+    ./update_version.py          # prints output to stdout
+    ./update_version.py -u       # updates version.gradle file in place
 '''
+
 from urllib.request import urlopen
 import json
 import os
 import sys
 
-VERSION_GRADLE = os.path.dirname(os.path.realpath(__file__)) + '/gradle/version.gradle'
+VERSION_GRADLE = os.path.dirname(os.path.realpath(__file__)) + '/version.gradle'
 REPOSITORY = "emartech/android-emarsys-sdk"
-FORMAT = '''
-ext {{
+FORMAT = '''ext {{
     emarsys_sdk_version = "{sdk_version}"
     emarsys_sdk_version_code = {sdk_version_code}
-}}
-'''
+}}'''
 
 def fetch(repository):
     with urlopen("https://api.github.com/repos/{}/releases".format(repository)) as res:
