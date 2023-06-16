@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
     }
 }
@@ -11,10 +10,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
 android {
+    namespace 'com.emarsys.pnp.inbox.sample'
+
     compileSdkVersion 33
 
     defaultConfig {
-        applicationId "com.emarsys.pnp.inbox.sample"
+        applicationId 'com.emarsys.pnp.inbox.sample'
         minSdkVersion 24
         targetSdkVersion 33
         versionCode emarsys_sdk_version_code
@@ -30,12 +31,11 @@ android {
 }
 
 dependencies {
-    implementation project(':emarsys-mobile-inbox')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation "com.emarsys:emarsys-sdk:$emarsys_sdk_version"
-    implementation "com.emarsys:emarsys-firebase:$emarsys_sdk_version"
+    implementation project(':emarsys-mobile-inbox')
 }

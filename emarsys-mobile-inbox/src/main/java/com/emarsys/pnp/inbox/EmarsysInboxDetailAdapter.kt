@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.emarsys.plugnplay.inbox.R
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxItemDetailBinding
+import com.emarsys.pnp.inbox.databinding.EmsInboxItemDetailBinding
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 

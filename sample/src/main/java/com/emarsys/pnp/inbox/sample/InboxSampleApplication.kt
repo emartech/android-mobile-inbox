@@ -19,7 +19,7 @@ class InboxSampleApplication : Application() {
             verboseConsoleLoggingEnabled= true)
         Emarsys.setup(config)
 
-        EmarsysInboxConfig.actionEventHandler = { context, eventName, payload ->
+        EmarsysInboxConfig.actionEventHandler = { _, eventName, payload ->
             Log.i("PNP-INBOX", "eventName: $eventName, payload: $payload")
         }
         EmarsysInboxConfig.actionButtonStyler = { button ->

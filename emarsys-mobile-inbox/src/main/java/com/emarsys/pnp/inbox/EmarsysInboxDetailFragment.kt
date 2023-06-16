@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import com.emarsys.plugnplay.inbox.databinding.EmsInboxFragmentDetailBinding
+import com.emarsys.pnp.inbox.databinding.EmsInboxFragmentDetailBinding
 
 open class EmarsysInboxDetailFragment : Fragment() {
     val viewModel: EmarsysInboxViewModel by activityViewModels()

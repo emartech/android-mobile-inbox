@@ -4,9 +4,9 @@ import android.os.Parcelable
 import android.text.format.DateFormat
 import com.emarsys.mobileengage.api.action.ActionModel
 import com.emarsys.mobileengage.api.inbox.Message
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class EmarsysInboxMessage(

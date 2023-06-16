@@ -12,11 +12,9 @@ import android.view.Gravity
 import android.view.View
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import com.emarsys.mobileengage.api.action.ActionModel
 import com.emarsys.mobileengage.api.action.AppEventActionModel
 import com.emarsys.mobileengage.api.action.OpenExternalUrlActionModel
-import com.emarsys.plugnplay.inbox.R
 import org.json.JSONObject
 
 class EmarsysInboxActionButton(
