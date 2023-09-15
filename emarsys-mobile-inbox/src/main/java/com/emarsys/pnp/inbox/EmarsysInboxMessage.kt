@@ -27,6 +27,8 @@ data class EmarsysInboxMessage(
 ) : Parcelable {
 
     companion object {
+        fun copy(old: EmarsysInboxMessage) = EmarsysInboxMessage(old.message)
+
         const val dateFormat = "HH:mm - dd MMM yyyy"
         const val openedTag = "opened"
         const val seenTag = "seen"

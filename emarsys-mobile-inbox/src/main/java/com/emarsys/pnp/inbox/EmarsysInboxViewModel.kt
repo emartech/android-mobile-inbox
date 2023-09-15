@@ -1,5 +1,7 @@
 package com.emarsys.pnp.inbox
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,15 +21,13 @@ class EmarsysInboxViewModel() : ViewModel() {
         if (message.isPinned()) {
             Emarsys.messageInbox.removeTag(EmarsysInboxMessage.pinnedTag, message.id) {
                 if (it == null) {
-                    message.tags.remove(EmarsysInboxMessage.pinnedTag)
-                    message.updateInListView()
+                    message.updatePinnedInListView(false)
                 }
             }
         } else {
             Emarsys.messageInbox.addTag(EmarsysInboxMessage.pinnedTag, message.id) {
                 if (it == null) {
-                    message.tags.add(EmarsysInboxMessage.pinnedTag)
-                    message.updateInListView()
+                    message.updatePinnedInListView(true)
                 }
             }
         }
@@ -45,7 +45,6 @@ class EmarsysInboxViewModel() : ViewModel() {
             Emarsys.messageInbox.addTag(EmarsysInboxMessage.openedTag, message.id) {
                 if (it == null) {
                     message.tags.add(EmarsysInboxMessage.openedTag)
-                    message.updateInListView()
                 }
             }
         }
@@ -53,7 +52,11 @@ class EmarsysInboxViewModel() : ViewModel() {
 
     fun seen(message: EmarsysInboxMessage) {
         if (!message.isSeen()) {
-            Emarsys.messageInbox.addTag(EmarsysInboxMessage.seenTag, message.id)
+            Emarsys.messageInbox.addTag(EmarsysInboxMessage.seenTag, message.id) {
+                if (it == null) {
+                    message.tags.add(EmarsysInboxMessage.seenTag)
+                }
+            }
         }
     }
 
@@ -62,11 +65,9 @@ class EmarsysInboxViewModel() : ViewModel() {
         Emarsys.messageInbox.fetchMessages { messages ->
             isRefreshing.value = false
             messages.result?.let { notificationStatus ->
-                this.messages.value = notificationStatus.messages
+                this.messages.postValue(notificationStatus.messages
                     .filter { !(it.tags?.contains(EmarsysInboxMessage.deletedTag) ?: false) }
-                    .sortedByDescending { it.receivedAt }
-                    .sortedByDescending { it.tags?.contains(EmarsysInboxMessage.pinnedTag) }
-                    .map { EmarsysInboxMessage(it) } as MutableList
+                    .map { EmarsysInboxMessage(it) } as MutableList)
             }
             messages.errorCause?.let { cause ->
                 error.value = "Error fetching messages: ${cause.message}"
@@ -74,14 +75,28 @@ class EmarsysInboxViewModel() : ViewModel() {
         }
     }
 
-    private fun EmarsysInboxMessage.updateInListView() {
-        // RecyclerView needs a new list to compare to.
+    private fun EmarsysInboxMessage.updatePinnedInListView(add: Boolean) {
+        val newMessage = EmarsysInboxMessage.copy(this)
+        if (add) {
+            newMessage.tags.add(EmarsysInboxMessage.pinnedTag)
+        } else {
+            newMessage.tags.remove(EmarsysInboxMessage.pinnedTag)
+        }
         val list = messages.value?.toMutableList()
-        list?.indexOfFirst { it.id == this.id }?.let { list.set(it, this); messages.value = list }
+        list?.indexOfFirst { it.id == this.id }?.let {
+            list[it] = newMessage
+            messages.postValue(list)
+        }
+        Handler(Looper.getMainLooper()).postDelayed({
+            Emarsys.messageInbox.fetchMessages { }
+        }, 3000)
     }
 
     private fun EmarsysInboxMessage.removeFromListView() {
         val list = messages.value?.toMutableList()
-        list?.indexOfFirst { it.id == this.id }?.let { list.removeAt(it); messages.value = list }
+        list?.indexOfFirst { it.id == this.id }?.let {
+            list.removeAt(it)
+            messages.postValue(list)
+        }
     }
 }
