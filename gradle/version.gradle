@@ -1,4 +1,4 @@
 ext {
-    emarsys_sdk_version = "3.5.3"
+    emarsys_sdk_version = "3.7.0"
     emarsys_sdk_version_code = 30
 }
