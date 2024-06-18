@@ -12,7 +12,7 @@ apply plugin: 'kotlin-parcelize'
 android {
     namespace 'com.emarsys.pnp.inbox.sample'
 
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId 'com.emarsys.pnp.inbox.sample'

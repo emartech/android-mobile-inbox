@@ -6,7 +6,7 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 android {
     namespace 'com.emarsys.pnp.inbox'
 
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     buildFeatures {
         viewBinding true
