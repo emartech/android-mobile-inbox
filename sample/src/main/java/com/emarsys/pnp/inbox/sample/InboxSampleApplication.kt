@@ -34,7 +34,7 @@ class InboxSampleApplication : Application() {
         ProviderInstaller.installIfNeededAsync(this, object :
             ProviderInstaller.ProviderInstallListener {
             override fun onProviderInstalled() {
-
+                // provider installed
             }
             override fun onProviderInstallFailed(errorCode: Int, recoveryIntent: Intent?) {
                 GoogleApiAvailability.getInstance().showErrorNotification(this@InboxSampleApplication, errorCode)

@@ -83,7 +83,9 @@ class EmarsysInboxActionButton(
                 val jsonObjectPayload = action.payload?.let { JSONObject(it) }
                 EmarsysInboxConfig.actionEventHandler?.invoke(context, action.name, jsonObjectPayload)
             }
-            else -> { }
+            else -> {
+                // unsupported
+            }
         }
     }
 
